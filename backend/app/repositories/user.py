@@ -40,6 +40,12 @@ class UserRepository:
         result = await self.db.execute(query)
         return result.scalar_one_or_none()
     
+    async def get_by_name_any_tenant(self, username: str) -> Optional[User]:
+        """Get user by name (used for auth, not tenant-scoped)."""
+        query = select(User).where(User.name == username)
+        result = await self.db.execute(query)
+        return result.scalar_one_or_none()
+    
     async def create(
         self,
         tenant_id: int,

@@ -29,12 +29,12 @@ async def demo_login(
     user_service = UserService(db)
     auth_service = AuthService(db)
     
-    # Get user
-    user = await user_service.get_user_any_tenant(request.user_id)
+    # Get user by username (name field)
+    user = await user_service.get_user_by_name(request.username)
     if not user:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail="User not found",
+            detail=f"User '{request.username}' not found",
         )
     
     # Create token

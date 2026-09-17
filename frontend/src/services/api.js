@@ -20,7 +20,7 @@ apiClient.interceptors.request.use((config) => {
 
 // Auth API
 export const authAPI = {
-  demoLogin: (userId) => apiClient.post('/auth/demo-login', { user_id: userId }),
+  demoLogin: (username) => apiClient.post('/auth/demo-login', { username }),
   getCurrentUser: () => apiClient.get('/auth/me'),
   getUserPermissions: () => apiClient.get('/auth/me/permissions'),
 };

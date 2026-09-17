@@ -24,3 +24,7 @@ class UserService:
     async def get_user_any_tenant(self, user_id: int) -> Optional[User]:
         """Get user by ID (for auth, not tenant-scoped)."""
         return await self.user_repo.get_by_id_any_tenant(user_id)
+    
+    async def get_user_by_name(self, username: str) -> Optional[User]:
+        """Get user by username (for auth, not tenant-scoped)."""
+        return await self.user_repo.get_by_name_any_tenant(username)

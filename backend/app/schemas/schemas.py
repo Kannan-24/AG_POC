@@ -168,7 +168,7 @@ class UserPermissionsResponse(BaseModel):
 # Demo Login
 class DemoLoginRequest(BaseModel):
     """Request for demo login."""
-    user_id: int
+    username: str
 
 
 class DemoLoginResponse(BaseModel):

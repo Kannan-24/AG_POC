@@ -1,35 +1,31 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../auth/AuthContext';
 import { authAPI } from '../services/api';
 import { Card, Button, LoadingState } from '../components/Shared';
 import '../styles/Login.css';
 
-// Demo users data
+// Demo users reference
 const DEMO_USERS = [
   {
-    id: 1,
     name: 'Alice',
     email: 'alice@prominence.demo',
     role: 'A&G Specialist',
     tenant: 'Prominence Health',
   },
   {
-    id: 2,
     name: 'Mike',
     email: 'mike@prominence.demo',
     role: 'Medical Director',
     tenant: 'Prominence Health',
   },
   {
-    id: 3,
     name: 'Bob',
     email: 'bob@demohealth.demo',
     role: 'Supervisor',
     tenant: 'Demo Health Plan',
   },
   {
-    id: 4,
     name: 'Sara',
     email: 'sara@demohealth.demo',
     role: 'Tenant Administrator',
@@ -37,25 +33,27 @@ const DEMO_USERS = [
   },
 ];
 
-const TENANTS = [
-  { name: 'Prominence Health', users: [DEMO_USERS[0], DEMO_USERS[1]] },
-  { name: 'Demo Health Plan', users: [DEMO_USERS[2], DEMO_USERS[3]] },
-];
-
 export function LoginPage() {
   const navigate = useNavigate();
   const { login } = useAuth();
-  const [selectedUser, setSelectedUser] = useState(null);
+  const [username, setUsername] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const handleUserSelect = async (user) => {
+  const handleLogin = async (e) => {
+    e.preventDefault();
     setIsLoading(true);
     setError(null);
 
     try {
-      // Call demo login
-      const response = await authAPI.demoLogin(user.id);
+      if (!username.trim()) {
+        setError('Please enter a username');
+        setIsLoading(false);
+        return;
+      }
+
+      // Call demo login with username
+      const response = await authAPI.demoLogin(username);
       const { access_token, token_type, tenant_id, role } = response.data;
 
       // Fetch current user info
@@ -77,7 +75,8 @@ export function LoginPage() {
       navigate('/dashboard');
     } catch (err) {
       console.error('Login failed:', err);
-      setError('Login failed. Please try again.');
+      const errorMsg = err.response?.data?.detail || 'Login failed. Please try again.';
+      setError(errorMsg);
       setIsLoading(false);
     }
   };
@@ -96,25 +95,52 @@ export function LoginPage() {
 
         {error && <div className="login-error">{error}</div>}
 
-        <div className="login-content">
-          {TENANTS.map((tenant) => (
-            <div key={tenant.name} className="tenant-group">
-              <h2 className="tenant-name">{tenant.name}</h2>
-              <div className="users-grid">
-                {tenant.users.map((user) => (
-                  <Button
-                    key={user.id}
-                    onClick={() => handleUserSelect(user)}
-                    className="user-card"
-                    variant="secondary"
-                  >
-                    <div className="user-name">{user.name}</div>
-                    <div className="user-role">{user.role}</div>
-                  </Button>
-                ))}
-              </div>
-            </div>
-          ))}
+        <form onSubmit={handleLogin} className="login-form">
+          <div className="form-group">
+            <label htmlFor="username">Username</label>
+            <input
+              id="username"
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              placeholder="Enter username"
+              className="login-input"
+              disabled={isLoading}
+              autoComplete="username"
+            />
+          </div>
+
+          <Button
+            type="submit"
+            className="login-button"
+            disabled={isLoading}
+          >
+            {isLoading ? 'Logging in...' : 'Login'}
+          </Button>
+        </form>
+
+        <div className="demo-users-list">
+          <h3>Demo Users Available:</h3>
+          <table className="users-table">
+            <thead>
+              <tr>
+                <th>Username</th>
+                <th>Role</th>
+                <th>Tenant</th>
+              </tr>
+            </thead>
+            <tbody>
+              {DEMO_USERS.map((user) => (
+                <tr key={user.name}>
+                  <td className="username-cell">
+                    <code>{user.name}</code>
+                  </td>
+                  <td>{user.role}</td>
+                  <td>{user.tenant}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
