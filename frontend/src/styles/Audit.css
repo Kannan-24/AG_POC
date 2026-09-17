@@ -1,0 +1,68 @@
+.audit-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.audit-header {
+  margin-bottom: 2rem;
+}
+
+.audit-header h1 {
+  font-size: 2rem;
+  color: var(--color-gray-900);
+  margin: 0;
+}
+
+.audit-header p {
+  color: var(--color-gray-600);
+  margin: 0.5rem 0 0 0;
+}
+
+.audit-table {
+  background-color: white;
+  border-radius: 0.5rem;
+  border: 1px solid var(--color-gray-200);
+  overflow-x: auto;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.audit-table table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 800px;
+}
+
+.audit-table thead {
+  background-color: var(--color-gray-100);
+  border-bottom: 2px solid var(--color-gray-300);
+}
+
+.audit-table th {
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  color: var(--color-gray-700);
+  font-size: 0.875rem;
+  text-transform: uppercase;
+}
+
+.audit-table td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--color-gray-200);
+  font-size: 0.875rem;
+}
+
+.audit-table tr:hover {
+  background-color: var(--color-gray-50);
+}
+
+.timestamp {
+  font-family: monospace;
+  color: var(--color-gray-600);
+}
+
+.action-name {
+  font-weight: 600;
+  color: var(--color-gray-900);
+  font-family: monospace;
+}

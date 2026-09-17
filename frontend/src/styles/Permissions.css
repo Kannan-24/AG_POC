@@ -1,0 +1,107 @@
+.permissions-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.permissions-header {
+  margin-bottom: 2rem;
+}
+
+.permissions-header h1 {
+  font-size: 2rem;
+  color: var(--color-gray-900);
+  margin: 0;
+}
+
+.permissions-header p {
+  color: var(--color-gray-600);
+  margin: 0.5rem 0 0 0;
+}
+
+.permissions-matrix-card {
+  background-color: white;
+  padding: 0;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.permissions-matrix {
+  overflow-x: auto;
+}
+
+.permissions-matrix table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 800px;
+}
+
+.permissions-matrix thead {
+  background-color: var(--color-gray-100);
+  border-bottom: 2px solid var(--color-gray-300);
+  position: sticky;
+  top: 0;
+}
+
+.permissions-matrix th {
+  padding: 1rem;
+  text-align: center;
+  font-weight: 600;
+  color: var(--color-gray-700);
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  border-right: 1px solid var(--color-gray-200);
+}
+
+.permissions-matrix th:first-child {
+  text-align: left;
+  border-right: 2px solid var(--color-gray-300);
+}
+
+.perm-header {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  white-space: nowrap;
+  min-width: 80px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.permissions-matrix td {
+  padding: 1rem;
+  text-align: center;
+  border-bottom: 1px solid var(--color-gray-200);
+  border-right: 1px solid var(--color-gray-200);
+}
+
+.permissions-matrix td:first-child {
+  text-align: left;
+  border-right: 2px solid var(--color-gray-300);
+  font-weight: 600;
+  color: var(--color-gray-900);
+  min-width: 150px;
+}
+
+.role-name {
+  padding-left: 1.5rem;
+}
+
+.perm-cell {
+  width: 80px;
+}
+
+.perm-check {
+  color: var(--color-success);
+  font-weight: bold;
+  font-size: 1.25rem;
+}
+
+.perm-empty {
+  color: var(--color-gray-400);
+  font-size: 1rem;
+}
+
+.permissions-matrix tr:hover {
+  background-color: var(--color-gray-50);
+}
